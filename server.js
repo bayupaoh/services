@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var fb = require('firebase-admin');
+var moment = require('moment-timezone');
 var config = require('./config/firebase');
 
 
@@ -9,16 +10,17 @@ app.get('/',function(req,res){
     res.send('Ini halaman services firebase loh');
 
 });
+	var format = 'YYYY-MM-DD HH:mm:ss ZZ';
+
 	var dates = new Date();
 	var now = dates.getFullYear()+'-'+(dates.getMonth()+1)+'-'+dates.getDate();
 	var jam = dates.getHours()+':'+dates.getMinutes();
-
 	var db = fb.database();
 	var ref = db.ref().child('kandang').child('g');
 	ref.on("child_changed", function(snapshot) {
   	var changedPost = snapshot.val();
 		var data = {
-				tanggal : now,
+				tanggal :now,
 				waktu : jam
 		}
 		var update_ref = db.ref().child('kandang/g/'+snapshot.key);
@@ -34,10 +36,10 @@ app.get('/',function(req,res){
 				var berat = changedPost.a;
 				var ref_grafik = db.ref().child('percobaangrafik/'+lantai+'/grid/'+now);
 				var datas = {
-						amonia : changedPost.b,
-						berat : changedPost.a,
-						kelembapan : changedPost.c,
-						suhu : changedPost.d
+						amonia : parseFloat(changedPost.b),
+						berat : parseFloat(changedPost.a),
+						kelembapan : parseFloat(changedPost.c),
+						suhu : parseFloat(changedPost.d)
 				};
 				ref_grafik.push().set(datas);
 		}
