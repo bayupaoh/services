@@ -43,7 +43,7 @@ app.get('/',function(req,res){
 		}
   	console.log("The updated post title is " + snapshot.key);
 	});
-
-app.listen(3000,function(){
-    console.log('ahahah 3000')
+var port = process.env.PORT || 4000;
+app.listen(port,function(){
+    console.log('listening on '+port);
 });
