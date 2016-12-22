@@ -33,8 +33,8 @@ app.get('/',function(req,res){
 				if(changedPost.lantai == 2){
 					lantai = 'lantai2';
 				}
-        if(!changedPost.a < 0 || !changedPost.b > 40 || !changedPost.c > 80 || !changedPost.d < 20 || !changedPost.d > 40){
-    				
+        //if(!changedPost.a < 0 || !changedPost.b > 40 || !changedPost.c > 80 || !changedPost.d < 20 || !changedPost.d > 40){
+
     				var ref_grafik = db.ref().child('percobaangrafik/'+lantai+'/grid/'+now);
     				var datas = {
     						amonia : parseFloat(changedPost.b),
@@ -43,7 +43,7 @@ app.get('/',function(req,res){
     						suhu : parseFloat(changedPost.d)
     				};
     				ref_grafik.push().set(datas);
-        }
+        //}
 		}
   	console.log("The updated kandang  key " + snapshot.key);
 	});
