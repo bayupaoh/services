@@ -33,15 +33,17 @@ app.get('/',function(req,res){
 				if(changedPost.lantai == 2){
 					lantai = 'lantai2';
 				}
-				var berat = changedPost.a;
-				var ref_grafik = db.ref().child('percobaangrafik/'+lantai+'/grid/'+now);
-				var datas = {
-						amonia : parseFloat(changedPost.b),
-						berat : parseFloat(changedPost.a),
-						kelembapan : parseFloat(changedPost.c),
-						suhu : parseFloat(changedPost.d)
-				};
-				ref_grafik.push().set(datas);
+        if(!changedPost.a < 0 || !changedPost.b > 40 || !changedPost.c > 80 || !changedPost.d < 20 || !changedPost.d > 40){
+    				
+    				var ref_grafik = db.ref().child('percobaangrafik/'+lantai+'/grid/'+now);
+    				var datas = {
+    						amonia : parseFloat(changedPost.b),
+    						berat : parseFloat(changedPost.a),
+    						kelembapan : parseFloat(changedPost.c),
+    						suhu : parseFloat(changedPost.d)
+    				};
+    				ref_grafik.push().set(datas);
+        }
 		}
   	console.log("The updated kandang  key " + snapshot.key);
 	});
