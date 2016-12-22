@@ -16,35 +16,35 @@ app.get('/',function(req,res){
 	var now = dates.getFullYear()+'-'+(dates.getMonth()+1)+'-'+dates.getDate();
 	var jam = dates.getHours()+':'+dates.getMinutes();
 	var db = fb.database();
-	// var ref = db.ref().child('kandang').child('g');
-	// ref.on("child_changed", function(snapshot) {
-  // 	var changedPost = snapshot.val();
-	// 	var data = {
-	// 			tanggal :now,
-	// 			waktu : jam
-	// 	}
-	// 	var update_ref = db.ref().child('kandang/g/'+snapshot.key);
-	// 	update_ref.update(data).then(function(update){
-	// 		console.log('update column..');
-	// 	});
-  //
-	// 	if(changedPost.lantai != 0){
-	// 			var lantai = 'lantai1';
-	// 			if(changedPost.lantai == 2){
-	// 				lantai = 'lantai2';
-	// 			}
-	// 			var berat = changedPost.a;
-	// 			var ref_grafik = db.ref().child('percobaangrafik/'+lantai+'/grid/'+now);
-	// 			var datas = {
-	// 					amonia : parseFloat(changedPost.b),
-	// 					berat : parseFloat(changedPost.a),
-	// 					kelembapan : parseFloat(changedPost.c),
-	// 					suhu : parseFloat(changedPost.d)
-	// 			};
-	// 			ref_grafik.push().set(datas);
-	// 	}
-  // 	console.log("The updated post title is " + snapshot.key);
-	// });
+	var ref = db.ref().child('kandang').child('g');
+	ref.on("child_changed", function(snapshot) {
+  	var changedPost = snapshot.val();
+		var data = {
+				tanggal :now,
+				waktu : jam
+		}
+		var update_ref = db.ref().child('kandang/g/'+snapshot.key);
+		update_ref.update(data).then(function(update){
+			console.log('update column..');
+		});
+
+		if(changedPost.lantai != 0){
+				var lantai = 'lantai1';
+				if(changedPost.lantai == 2){
+					lantai = 'lantai2';
+				}
+				var berat = changedPost.a;
+				var ref_grafik = db.ref().child('percobaangrafik/'+lantai+'/grid/'+now);
+				var datas = {
+						amonia : parseFloat(changedPost.b),
+						berat : parseFloat(changedPost.a),
+						kelembapan : parseFloat(changedPost.c),
+						suhu : parseFloat(changedPost.d)
+				};
+				ref_grafik.push().set(datas);
+		}
+  	console.log("The updated kandang  key " + snapshot.key);
+	});
 
   var ref2 = db.ref().child('kandang').child('s');
   ref2.on('child_changed',function(snapshot){
