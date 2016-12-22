@@ -19,14 +19,14 @@ app.get('/',function(req,res){
 	var ref = db.ref().child('kandang').child('g');
 	ref.on("child_changed", function(snapshot) {
   	var changedPost = snapshot.val();
-		var data = {
-				tanggal :now,
-				waktu : jam
-		}
-		var update_ref = db.ref().child('kandang/g/'+snapshot.key);
-		update_ref.update(data).then(function(update){
-			console.log('update column..');
-		});
+		// var data = {
+		// 		tanggal :now,
+		// 		waktu : jam
+		// }
+		// var update_ref = db.ref().child('kandang/g/'+snapshot.key);
+		// update_ref.update(data).then(function(update){
+		// 	console.log('update column..');
+		// });
 
 		if(changedPost.lantai != 0){
 				var lantai = 'lantai1';
@@ -67,7 +67,9 @@ app.get('/',function(req,res){
       a : changedPost.a,
       b : changedPost.b,
       c : changedPost.c,
-      d : changedPost.d
+      d : changedPost.d,
+      tanggal :now,
+  		waktu : jam
     };
     var update_ref = db.ref().child('kandangmirror/g/'+snapshot.key);
       update_ref.update(data).then(function(update){
