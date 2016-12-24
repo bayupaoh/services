@@ -9,27 +9,29 @@ fb.initializeApp(config.admin);
 
 	// var format = 'YYYY-MM-DD HH:mm:ss ZZ';
 
-function calcTime(city, offset) {
+function calcTime() {
 
-    d = new Date();
+    var d = new Date();
 
-    utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+    var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
 
-    nd = new Date(utc + (3600000*offset));
+    var nd = new Date(utc + (3600000*7));
 
     // return time as a string
     return nd.toLocaleString();
 
 }
+//   console.log(indonesia);
+//   // var indonesia = calcTime('indonesia', '+7');
 
-  var indonesia = calcTime('indonesia', '+7');
-  var dates = new Date(indonesia);
 
-	var now = dates.getFullYear()+'-'+(dates.getMonth()+1)+'-'+dates.getDate();
-	var jam = dates.getHours()+':'+dates.getMinutes();
-  var test = new Date(jam)
   app.get('/',function(req,res){
-      res.send('Cimernag , Now  '+now+' '+jam);
+    var indonesia = calcTime();
+    var dates = new Date(indonesia);
+
+    var now = dates.getFullYear()+'-'+(dates.getMonth()+1)+'-'+dates.getDate();
+    var jam = dates.getHours()+':'+dates.getMinutes();
+      res.send('Cimerang , '+now+' '+jam);
 
   });
 
@@ -37,16 +39,13 @@ function calcTime(city, offset) {
 	var db = fb.database();
 	var ref = db.ref().child('kandang').child('g');
 	ref.on("child_changed", function(snapshot) {
-  	var changedPost = snapshot.val();
-		// var data = {
-		// 		tanggal :now,
-		// 		waktu : jam
-		// }
-		// var update_ref = db.ref().child('kandang/g/'+snapshot.key);
-		// update_ref.update(data).then(function(update){
-		// 	console.log('update column..');
-		// });
 
+    var indonesia = calcTime();
+    var dates = new Date(indonesia);
+    var now = dates.getFullYear()+'-'+(dates.getMonth()+1)+'-'+dates.getDate();
+    var jam = dates.getHours()+':'+dates.getMinutes();
+
+    var changedPost = snapshot.val();
 		if(changedPost.lantai != 0){
 				var lantai = 'lantai1';
 				if(changedPost.lantai == 2){
@@ -69,6 +68,11 @@ function calcTime(city, offset) {
 
   var ref2 = db.ref().child('kandang').child('s');
   ref2.on('child_changed',function(snapshot){
+    var indonesia = calcTime();
+    var dates = new Date(indonesia);
+    var now = dates.getFullYear()+'-'+(dates.getMonth()+1)+'-'+dates.getDate();
+    var jam = dates.getHours()+':'+dates.getMinutes();
+
     var changedPost = snapshot.val();
     var data = {
       a : changedPost.a,
@@ -85,6 +89,12 @@ function calcTime(city, offset) {
 
   var ref3 = db.ref().child('kandang').child('g');
   ref3.on('child_changed',function(snapshot){
+
+    var indonesia = calcTime();
+    var dates = new Date(indonesia);
+    var now = dates.getFullYear()+'-'+(dates.getMonth()+1)+'-'+dates.getDate();
+    var jam = dates.getHours()+':'+dates.getMinutes();
+
     var changedPost = snapshot.val();
     var data = {
       a : changedPost.a,
