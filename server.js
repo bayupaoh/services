@@ -6,15 +6,34 @@ var config = require('./config/firebase');
 
 
 fb.initializeApp(config.admin);
-app.get('/',function(req,res){
-    res.send('Ini halaman services firebase loh');
 
-});
 	// var format = 'YYYY-MM-DD HH:mm:ss ZZ';
 
-	var dates = new Date();
+function calcTime(city, offset) {
+
+    d = new Date();
+
+    utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+
+    nd = new Date(utc + (3600000*offset));
+
+    // return time as a string
+    return nd.toLocaleString();
+
+}
+
+  var indonesia = calcTime('indonesia', '+7');
+  var dates = new Date(indonesia);
+
 	var now = dates.getFullYear()+'-'+(dates.getMonth()+1)+'-'+dates.getDate();
 	var jam = dates.getHours()+':'+dates.getMinutes();
+  var test = new Date(jam)
+  app.get('/',function(req,res){
+      res.send('Cimernag , Now  '+now+' '+jam);
+
+  });
+
+
 	var db = fb.database();
 	var ref = db.ref().child('kandang').child('g');
 	ref.on("child_changed", function(snapshot) {
