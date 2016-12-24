@@ -72,7 +72,9 @@ function calcTime(city, offset) {
     var changedPost = snapshot.val();
     var data = {
       a : changedPost.a,
-      b : changedPost.b
+      b : changedPost.b,
+      tanggal :now,
+  		waktu : jam
     };
     var update_ref = db.ref().child('kandangmirror/s/'+snapshot.key);
     	update_ref.update(data).then(function(update){
