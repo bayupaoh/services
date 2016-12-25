@@ -37,7 +37,7 @@ function calcTime() {
 
 
 	var db = fb.database();
-	var ref = db.ref().child('kandang').child('g');
+	var ref = db.ref().child('kandangmirror').child('g');
 	ref.on("child_changed", function(snapshot) {
 
     var indonesia = calcTime();
@@ -63,7 +63,7 @@ function calcTime() {
     				ref_grafik.push().set(datas);
         //}
 		}
-  	console.log("The updated kandang  key " + snapshot.key);
+  	console.log("The updated kandang  key " + snapshot.key+' '+lantai);
 	});
 
   var ref2 = db.ref().child('kandang').child('s');
