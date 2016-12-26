@@ -1,0 +1,8 @@
+{
+    // Comments are supported
+    "uid": "app",
+    "append": true,
+    "watch": true,
+    "script": "index.js",
+    "sourceDir": "/home/rzlyp/app"
+}
