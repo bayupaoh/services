@@ -56,7 +56,7 @@ function calcTime() {
     				var ref_grafik = db.ref().child('percobaangrafik/'+lantai+'/grid/'+now+'/'+snapshot.key);
     				var datas = {
     						amonia : parseFloat(changedPost.b),
-    						berat : parseFloat(changedPost.a),
+    						berat : parseFloat((changedPost.a/2).toFixed(2)),
     						kelembapan : parseFloat(changedPost.c),
     						suhu : parseFloat(changedPost.d)
     				};
