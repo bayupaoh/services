@@ -28,8 +28,15 @@ function calcTime() {
   app.get('/',function(req,res){
     var indonesia = calcTime();
     var dates = new Date(indonesia);
-
-    var now = dates.getFullYear()+'-'+(dates.getMonth()+1)+'-'+dates.getDate();
+    var bulan = dates.getMonth()+1;
+    var haris = dates.getDate();
+    if(bulan < 10){
+      bulan = '0'+bulan;
+    }
+    if(haris < 10){
+      haris = '0'+haris;
+    }
+    var now = dates.getFullYear()+'-'+bulan+'-'+haris;
     var jam = dates.getHours()+':'+dates.getMinutes();
       res.send('Cimerang , '+now+' '+jam);
 
@@ -42,7 +49,15 @@ function calcTime() {
 
     var indonesia = calcTime();
     var dates = new Date(indonesia);
-    var now = dates.getFullYear()+'-'+(dates.getMonth()+1)+'-'+dates.getDate();
+    var bulan = dates.getMonth()+1;
+    var haris = dates.getDate();
+    if(bulan < 10){
+      bulan = '0'+bulan;
+    }
+    if(haris < 10){
+      haris = '0'+haris;
+    }
+    var now = dates.getFullYear()+'-'+(bulan+1)+'-'+haris;
     var jam = dates.getHours()+':'+dates.getMinutes();
 
     var changedPost = snapshot.val();
@@ -97,7 +112,15 @@ function calcTime() {
   ref2.on('child_changed',function(snapshot){
     var indonesia = calcTime();
     var dates = new Date(indonesia);
-    var now = dates.getFullYear()+'-'+(dates.getMonth()+1)+'-'+dates.getDate();
+    var bulan = dates.getMonth()+1;
+    var haris = dates.getDate();
+    if(bulan < 10){
+      bulan = '0'+bulan;
+    }
+    if(haris < 10){
+      haris = '0'+haris;
+    }
+    var now = dates.getFullYear()+'-'+(bulan+1)+'-'+haris;
     var hh = dates.getHours();
     var menit = dates.getMinutes();
 
@@ -128,7 +151,15 @@ function calcTime() {
 
     var indonesia = calcTime();
     var dates = new Date(indonesia);
-    var now = dates.getFullYear()+'-'+(dates.getMonth()+1)+'-'+dates.getDate();
+    var bulan = dates.getMonth()+1;
+    var haris = dates.getDate();
+    if(bulan < 10){
+      bulan = '0'+bulan;
+    }
+    if(haris < 10){
+      haris = '0'+haris;
+    }
+    var now = dates.getFullYear()+'-'+(bulan+1)+'-'+haris;
     var hh = dates.getHours();
     var menit = dates.getMinutes();
 
