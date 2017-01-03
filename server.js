@@ -57,7 +57,7 @@ function calcTime() {
     if(haris < 10){
       haris = '0'+haris;
     }
-    var now = dates.getFullYear()+'-'+(bulan+1)+'-'+haris;
+    var now = dates.getFullYear()+'-'+(bulan)+'-'+haris;
     var jam = dates.getHours()+':'+dates.getMinutes();
 
     var changedPost = snapshot.val();
@@ -120,7 +120,7 @@ function calcTime() {
     if(haris < 10){
       haris = '0'+haris;
     }
-    var now = dates.getFullYear()+'-'+(bulan+1)+'-'+haris;
+    var now = dates.getFullYear()+'-'+(bulan)+'-'+haris;
     var hh = dates.getHours();
     var menit = dates.getMinutes();
 
@@ -159,7 +159,7 @@ function calcTime() {
     if(haris < 10){
       haris = '0'+haris;
     }
-    var now = dates.getFullYear()+'-'+(bulan+1)+'-'+haris;
+    var now = dates.getFullYear()+'-'+(bulan)+'-'+haris;
     var hh = dates.getHours();
     var menit = dates.getMinutes();
 
