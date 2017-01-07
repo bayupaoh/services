@@ -134,8 +134,8 @@ function calcTime() {
 
     var changedPost = snapshot.val();
     var data = {
-      a : changedPost.a,
-      b : changedPost.b,
+      a : parseFloat(changedPost.a),
+      b : parseFloat(changedPost.b),
       tanggal :now,
   		waktu : jam
     };
@@ -172,10 +172,10 @@ function calcTime() {
     var jam = hh+':'+menit;
     var changedPost = snapshot.val();
     var data = {
-      a : changedPost.a,
-      b : changedPost.b,
-      c : changedPost.c,
-      d : changedPost.d,
+      a : parseFloat(changedPost.a),
+      b : parseFloat(changedPost.b),
+      c : parseFloat(changedPost.c),
+      d : parseFloat(changedPost.d),
       tanggal :now,
   		waktu : jam
     };
@@ -215,15 +215,15 @@ ref9.on('child_changed',function(snapshot){
   var keys = snapshot.key;
   if(keys.substr(0,1) !== 'W'){
       var data = {
-        a : changedPost.t,
-        b : changedPost.h,
+        a : parseFloat(changedPost.t),
+        b : parseFloat(changedPost.h),
         tanggal :now,
         waktu : jam
       };
   }else{
     var data = {
-      a : changedPost.s,
-      b : changedPost.f,
+      a : parseFloat(changedPost.s),
+      b : parseFloat(changedPost.f),
       tanggal :now,
       waktu : jam
     };
