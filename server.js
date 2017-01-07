@@ -186,7 +186,54 @@ function calcTime() {
       //console.log("The updated kandang key :  " );
   });
 
+//sensor v2 guys
+var ref9 = db.ref().child('kandang').child('sv2');
+ref9.on('child_changed',function(snapshot){
+  var indonesia = calcTime();
+  var dates = new Date(indonesia);
+  var bulan = dates.getMonth()+1;
+  var haris = dates.getDate();
+  if(bulan < 10){
+    bulan = '0'+bulan;
+  }
+  if(haris < 10){
+    haris = '0'+haris;
+  }
+  var now = dates.getFullYear()+'-'+(bulan)+'-'+haris;
+  var hh = dates.getHours();
+  var menit = dates.getMinutes();
 
+  if(dates.getHours() < 10){
+      hh = '0'+dates.getHours();
+  }
+  if(dates.getMinutes() < 10){
+    menit = '0'+dates.getMinutes();
+  }
+  var jam = hh+':'+menit;
+
+  var changedPost = snapshot.val();
+  var keys = snapshot.key;
+  if(keys.substr(0,1) !== 'W'){
+      var data = {
+        a : changedPost.t,
+        b : changedPost.h,
+        tanggal :now,
+        waktu : jam
+      };
+  }else{
+    var data = {
+      a : changedPost.s,
+      b : changedPost.f,
+      tanggal :now,
+      waktu : jam
+    };
+  }
+  var update_ref = db.ref().child('kandangmirror/s/'+snapshot.key);
+    update_ref.update(data).then(function(update){
+      console.log('update Sensor '+snapshot.key);
+    });
+    //console.log("The updated sensor key : " + snapshot.key);
+});
 
 
 var port = process.env.PORT || 3000;
