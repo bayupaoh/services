@@ -73,9 +73,9 @@ function calcTime() {
       				var ref_grafik = db.ref().child('percobaangrafik/'+lantai+'/grid/'+now+'/'+snapshot.key);
       				var datas = {
       						amonia : (changedPost.b).toString(),
-      						berat : ((changedPost.a/2).toFixed(2))toString(),
-      						kelembapan : (changedPost.c)toString(),
-      						suhu : (changedPost.d)toString()
+      						berat : ((changedPost.a/2).toFixed(2)).toString(),
+      						kelembapan : (changedPost.c).toString(),
+      						suhu : (changedPost.d).toString()
       				};
               ref_grafik.update(datas).then(function(update){
             		console.log('update kandang percobaangrafik '+snapshot.key+' '+lantai);
@@ -177,10 +177,10 @@ function calcTime() {
     var jam = hh+':'+menit;
     var changedPost = snapshot.val();
     var data = {
-      a : parseFloat(changedPost.a),
-      b : parseFloat(changedPost.b),
-      c : parseFloat(changedPost.c),
-      d : parseFloat(changedPost.d),
+      a : (changedPost.a).toString(),
+      b : (changedPost.b).toString(),
+      c : (changedPost.c).toString(),
+      d : (changedPost.d).toString(),
       tanggal :now,
   		waktu : jam
     };
