@@ -61,23 +61,28 @@ function calcTime() {
     var jam = dates.getHours()+':'+dates.getMinutes();
 
     var changedPost = snapshot.val();
-		if(changedPost.lantai != 0){
-				var lantai = 'lantai1';
-				if(changedPost.lantai == 2){
-					lantai = 'lantai2';
-				}
+		if(changedPost.lantai !== 0){
+				var lantai = '';
+				if(changedPost.lantai === 1){
+					lantai = 'lantai1';
+				}else if(changedPost.lantai === 2){
+          lantai = 'lantai2'
+        }
         //if(!changedPost.a < 0 || !changedPost.b > 40 || !changedPost.c > 80 || !changedPost.d < 20 || !changedPost.d > 40){
-
-    				var ref_grafik = db.ref().child('percobaangrafik/'+lantai+'/grid/'+now+'/'+snapshot.key);
-    				var datas = {
-    						amonia : parseFloat(changedPost.b),
-    						berat : parseFloat((changedPost.a/2).toFixed(2)),
-    						kelembapan : parseFloat(changedPost.c),
-    						suhu : parseFloat(changedPost.d)
-    				};
-            ref_grafik.update(datas).then(function(update){
-          		console.log('update kandang percobaangrafik '+snapshot.key+' '+lantai);
-          	});
+          if(lantai !== ''){
+      				var ref_grafik = db.ref().child('percobaangrafik/'+lantai+'/grid/'+now+'/'+snapshot.key);
+      				var datas = {
+      						amonia : parseFloat(changedPost.b),
+      						berat : parseFloat((changedPost.a/2).toFixed(2)),
+      						kelembapan : parseFloat(changedPost.c),
+      						suhu : parseFloat(changedPost.d)
+      				};
+              ref_grafik.update(datas).then(function(update){
+            		console.log('update kandang percobaangrafik '+snapshot.key+' '+lantai);
+            	});
+           }else{
+              console.log('lantai not found !');
+           } 
 
             // var ref_rata = db.ref().child('percobaangrafik/'+lantai+'/grid/'+now);
             //
