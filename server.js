@@ -72,10 +72,10 @@ function calcTime() {
           if(lantai !== ''){
       				var ref_grafik = db.ref().child('percobaangrafik/'+lantai+'/grid/'+now+'/'+snapshot.key);
       				var datas = {
-      						amonia : (changedPost.b).toString(),
-      						berat : ((changedPost.a/2).toFixed(2)).toString(),
-      						kelembapan : (changedPost.c).toString(),
-      						suhu : (changedPost.d).toString()
+      						amonia : parseFloat(changedPost.b),
+      						berat : parseFloat((changedPost.a/2).toFixed(2)),
+      						kelembapan : parseFloat(changedPost.c),
+      						suhu : parseFloat(changedPost.d)
       				};
               ref_grafik.update(datas).then(function(update){
             		console.log('update kandang percobaangrafik '+snapshot.key+' '+lantai);
