@@ -41,7 +41,66 @@ function calcTime() {
       res.send('Cimerang , '+now+' '+jam);
 
   });
+  app.get('/lantai1',function(req,res){
+      var ref_rata = db.ref().child('percobaangrafik/lantai1/grid/2017-01-07');
+            
+            ref_rata.once("value")
+              .then(function (snapshot) {
+                var rata = 0;
+                var sum = 0;
+                var count = 0;
+                snapshot.forEach(function (childSnapshot) {
+                  var berat = childSnapshot.val().berat;
+                  count = berat;
+                  sum = berat*2;
+                  console.log(childSnapshot.key+' before '+count+' after '+sum);
+                  var ref_mortality = db.ref().child('percobaangrafik/lantai1/grid/2017-01-07/'+childSnapshot.key);
+                  var rerata = {
+                    berat : sum
+                  }
+                  ref_mortality.update(rerata).then(function(update){
+                   console.log('udpate lantai 1');
+                 });
 
+
+
+
+                });
+            
+                
+              });
+       res.send('haha lantai 1');       
+  });
+  app.get('/lantai2',function(req,res){
+      var ref_rata = db.ref().child('percobaangrafik/lantai2/grid/2017-01-07');
+            
+            ref_rata.once("value")
+              .then(function (snapshot) {
+                var rata = 0;
+                var sum = 0;
+                var count = 0;
+                snapshot.forEach(function (childSnapshot) {
+                  var berat = childSnapshot.val().berat;
+                  count = berat;
+                  sum = berat*2;
+                  console.log(childSnapshot.key+' before '+count+' after '+sum);
+                  var ref_mortality = db.ref().child('percobaangrafik/lantai2/grid/2017-01-07/'+childSnapshot.key);
+                  var rerata = {
+                    berat : sum
+                  }
+                  ref_mortality.update(rerata).then(function(update){
+                   console.log('udpate lantai 2');
+                 });
+
+
+
+
+                });
+            
+                
+              });
+       res.send('haha lantai 2');       
+  });
 
 	var db = fb.database();
 	var ref = db.ref().child('kandangmirror').child('g');
@@ -70,7 +129,7 @@ function calcTime() {
         }
         //if(!changedPost.a < 0 || !changedPost.b > 40 || !changedPost.c > 80 || !changedPost.d < 20 || !changedPost.d > 40){
           if(lantai !== ''){
-      				var ref_grafik = db.ref().child('percobaangrafik/'+lantai+'/grid/'+now+'/'+snapshot.key);
+      				var ref_grafik = db.ref().child('percobaangrafik/'+lantai+'/grid/'+changedPost.tanggal+'/'+snapshot.key);
       				var datas = {
       						amonia : parseFloat(changedPost.b),
       						berat : parseFloat(changedPost.a),
