@@ -41,66 +41,6 @@ function calcTime() {
       res.send('Cimerang , '+now+' '+jam);
 
   });
-  app.get('/lantai1',function(req,res){
-      var ref_rata = db.ref().child('percobaangrafik/lantai1/grid/2017-01-07');
-            
-            ref_rata.once("value")
-              .then(function (snapshot) {
-                var rata = 0;
-                var sum = 0;
-                var count = 0;
-                snapshot.forEach(function (childSnapshot) {
-                  var berat = childSnapshot.val().berat;
-                  count = berat;
-                  sum = berat*2;
-                  console.log(childSnapshot.key+' before '+count+' after '+sum);
-                  var ref_mortality = db.ref().child('percobaangrafik/lantai1/grid/2017-01-07/'+childSnapshot.key);
-                  var rerata = {
-                    berat : sum
-                  }
-                  ref_mortality.update(rerata).then(function(update){
-                   console.log('udpate lantai 1');
-                 });
-
-
-
-
-                });
-            
-                
-              });
-       res.send('haha lantai 1');       
-  });
-  app.get('/lantai2',function(req,res){
-      var ref_rata = db.ref().child('percobaangrafik/lantai2/grid/2017-01-07');
-            
-            ref_rata.once("value")
-              .then(function (snapshot) {
-                var rata = 0;
-                var sum = 0;
-                var count = 0;
-                snapshot.forEach(function (childSnapshot) {
-                  var berat = childSnapshot.val().berat;
-                  count = berat;
-                  sum = berat*2;
-                  console.log(childSnapshot.key+' before '+count+' after '+sum);
-                  var ref_mortality = db.ref().child('percobaangrafik/lantai2/grid/2017-01-07/'+childSnapshot.key);
-                  var rerata = {
-                    berat : sum
-                  }
-                  ref_mortality.update(rerata).then(function(update){
-                   console.log('udpate lantai 2');
-                 });
-
-
-
-
-                });
-            
-                
-              });
-       res.send('haha lantai 2');       
-  });
 
 	var db = fb.database();
 	var ref = db.ref().child('kandangmirror').child('g');
@@ -120,16 +60,20 @@ function calcTime() {
     var jam = dates.getHours()+':'+dates.getMinutes();
 
     var changedPost = snapshot.val();
-		if(changedPost.lantai !== 0){
-				var lantai = '';
-				if(changedPost.lantai === 1){
-					lantai = 'lantai1';
-				}else if(changedPost.lantai === 2){
-          lantai = 'lantai2'
-        }
+		if(changedPost.idKandang !== 0){
+				var kandang = '';
+				if(changedPost.idKandang === 1){
+					kandang = 'kandang1';
+				}else if(changedPost.idKandang === 2){
+          			kandang = 'kandang2';
+        		}else if(changedPost.idKandang === 3){
+        			kandang = 'kandang3';
+        		}else if(changedPost.idKandang === 4){
+        			kandang = 'kandang4';
+        		}	
         //if(!changedPost.a < 0 || !changedPost.b > 40 || !changedPost.c > 80 || !changedPost.d < 20 || !changedPost.d > 40){
-          if(lantai !== ''){
-      				var ref_grafik = db.ref().child('percobaangrafik/'+lantai+'/grid/'+changedPost.tanggal+'/'+snapshot.key);
+          if(kandang !== ''){
+      				var ref_grafik = db.ref().child('grafik/'+kandang+'/grid/'+changedPost.tanggal+'/'+snapshot.key);
       				var datas = {
       						amonia : parseFloat(changedPost.b),
       						berat : parseFloat(changedPost.a),
@@ -137,10 +81,10 @@ function calcTime() {
       						suhu : parseFloat(changedPost.d)
       				};
               ref_grafik.update(datas).then(function(update){
-            		console.log('update kandang percobaangrafik '+snapshot.key+' '+lantai);
+            		console.log('update kandang grafik '+snapshot.key+' '+kandang);
             	});
            }else{
-              console.log('lantai not found !');
+              console.log('kandang not found !');
            } 
 
             // var ref_rata = db.ref().child('percobaangrafik/'+lantai+'/grid/'+now);
@@ -211,6 +155,46 @@ function calcTime() {
   });
 
   var ref3 = db.ref().child('kandang').child('g');
+  ref3.on('child_added',function(snapshot){
+
+    var indonesia = calcTime();
+    var dates = new Date(indonesia);
+    var bulan = dates.getMonth()+1;
+    var haris = dates.getDate();
+    if(bulan < 10){
+      bulan = '0'+bulan;
+    }
+    if(haris < 10){
+      haris = '0'+haris;
+    }
+    var now = dates.getFullYear()+'-'+(bulan)+'-'+haris;
+    var hh = dates.getHours();
+    var menit = dates.getMinutes();
+
+    if(dates.getHours() < 10){
+        hh = '0'+dates.getHours();
+    }
+    if(dates.getMinutes() < 10){
+      menit = '0'+dates.getMinutes();
+    }
+    var jam = hh+':'+menit;
+    var changedPost = snapshot.val();
+    var data = {
+      a : (changedPost.a).toString(),
+      b : (changedPost.b).toString(),
+      c : (changedPost.c).toString(),
+      d : (changedPost.d).toString(),
+      tanggal :now,
+  	   waktu : jam
+    };
+    var update_ref = db.ref().child('kandangmirror/g/'+snapshot.key);
+      update_ref.update(data).then(function(update){
+        console.log('update mirror kandang..'+ snapshot.key);
+      });
+      //console.log("The updated kandang key :  " );
+  });
+
+  var ref3 = db.ref().child('kandang').child('g');
   ref3.on('child_changed',function(snapshot){
 
     var indonesia = calcTime();
@@ -241,7 +225,7 @@ function calcTime() {
       c : (changedPost.c).toString(),
       d : (changedPost.d).toString(),
       tanggal :now,
-  		waktu : jam
+  	   waktu : jam
     };
     var update_ref = db.ref().child('kandangmirror/g/'+snapshot.key);
       update_ref.update(data).then(function(update){
