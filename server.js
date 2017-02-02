@@ -41,6 +41,9 @@ function calcTime() {
       res.send('Cimerang , '+now+' '+jam);
 
   });
+  app.get('/grafik',function(req,res){
+  		res.send('grafik');
+  });
 
 	var db = fb.database();
 	var ref = db.ref().child('kandangmirror').child('g');
@@ -61,18 +64,10 @@ function calcTime() {
 
     var changedPost = snapshot.val();
 		if(changedPost.idKandang !== 0){
-				var kandang = '';
-				if(changedPost.idKandang === 1){
-					kandang = 'kandang1';
-				}else if(changedPost.idKandang === 2){
-          			kandang = 'kandang2';
-        		}else if(changedPost.idKandang === 3){
-        			kandang = 'kandang3';
-        		}else if(changedPost.idKandang === 4){
-        			kandang = 'kandang4';
-        		}	
+				var kandang = 'kandang'+changedPost.idKandang;
+				
         //if(!changedPost.a < 0 || !changedPost.b > 40 || !changedPost.c > 80 || !changedPost.d < 20 || !changedPost.d > 40){
-          if(kandang !== ''){
+          
       				var ref_grafik = db.ref().child('grafik/'+kandang+'/grid/'+changedPost.tanggal+'/'+snapshot.key);
       				var datas = {
       						amonia : parseFloat(changedPost.b),
@@ -83,9 +78,7 @@ function calcTime() {
               ref_grafik.update(datas).then(function(update){
             		console.log('update kandang grafik '+snapshot.key+' '+kandang);
             	});
-           }else{
-              console.log('kandang not found !');
-           } 
+           
 
             // var ref_rata = db.ref().child('percobaangrafik/'+lantai+'/grid/'+now);
             //
