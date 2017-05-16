@@ -383,239 +383,13 @@ app.get('/sendmail',(req, res, next) =>{
 		
     
         var templates = new EmailTemplates({root: './views'});
-        async.parallel({
-                    feels_like_1: function(callback) {
-                        //Database Reference
-                            var ref = db.ref('grafik/kandang1/perhitungan');
-
-                            //Read Data
-                            ref.once('value', function ref(snapshot) {
-                              // var count = 0;
-                              // var totalSuhu = 0;
-                              // var totalHumidity = 0;
-
-                              // snapshot.forEach(function (childSnapshot) {
-
-                              //   if (childSnapshot.val().lantai == 1) {
-                              //     var suhu = parseFloat(childSnapshot.val().a);
-                              //     var humidity = parseFloat(childSnapshot.val().b);   
-                                            
-                              //     if (childSnapshot.val().lantai == 1) {
-                              //       totalSuhu = totalSuhu + suhu;
-                              //       totalHumidity += humidity;
-                              //       count++;
-                              //     }
-
-                              //   }
-                              // });
-
-                              // var rerataSuhu = totalSuhu / count;
-                              // var rerataHumidity = totalHumidity / count;
-
-                              // var rerataFeelsLike = feels_Like(rerataHumidity, rerataSuhu);
-                              // console.log(snapshot);
-                              const rerataFeelsLike = 23;
-                              callback(null, rerataFeelsLike);
-                            });
-                    },
-                    feels_like_2: function(callback) {
-                        var ref = db.ref('kandangmirror/s');
-
-                            //Read Data
-                            ref.once('value', function ref(snapshot) {
-                              var count = 0;
-                              var totalSuhu = 0;
-                              var totalHumidity = 0;
-                              snapshot.forEach(function (childSnapshot) {
-
-                                if (childSnapshot.val().lantai == 2) {
-                                  var suhu = parseFloat(childSnapshot.val().a);
-                                  var humidity = parseFloat(childSnapshot.val().b);   
-                                          
-                                  if (childSnapshot.val().lantai == 2) {
-                                    totalSuhu = totalSuhu + suhu;
-                                    totalHumidity += humidity;
-                                    count++;
-                                  }
-
-                                }
-                              });
-
-                              var rerataSuhu = totalSuhu / count;
-                              var rerataHumidity = totalHumidity / count;
-
-                              var rerataFeelsLike = feels_Like(rerataHumidity, rerataSuhu);
-                              callback(null, rerataFeelsLike);
-                            });
-                    },
-                    suhu_indor_1: function(callback) {
-                        var ref = db.ref('kandangmirror/s');
-
-                            //Read Data
-                            ref.once('value', function ref(snapshot) {
-                              var count = 0;
-                              var totalSuhu = 0;
-
-                              snapshot.forEach(function (childSnapshot) {
-
-                                if ((childSnapshot.val().lantai == 1)  && ((childSnapshot.key).substring(0,1) == 'S')) {
-                                  var suhu = parseFloat(childSnapshot.val().a);
-                                            
-                                  if (childSnapshot.val().lantai == 1) {
-                                    totalSuhu = totalSuhu + suhu;
-                                    count++;
-                                  }
-
-                                }
-                              });
-
-                              var rerataSuhu = (totalSuhu / count).toFixed(2);
-
-                              
-                              callback(null, rerataSuhu);
-                            });
-                    },
-                    suhu_indor_2: function(callback) {
-                        var ref = db.ref('kandangmirror/s');
-
-                            //Read Data
-                            ref.once('value', function ref(snapshot) {
-                              var count = 0;
-                              var totalSuhu = 0;
-
-                              snapshot.forEach(function (childSnapshot) {
-                                if ((childSnapshot.val().lantai == 2) && ((childSnapshot.key).substring(0,1) == 'S')) {
-                                  var suhu = parseFloat(childSnapshot.val().a);
-                                            
-                                  if (childSnapshot.val().lantai == 2) {
-                                    totalSuhu = totalSuhu + suhu;
-                                    count++;
-                                  }
-
-                                }
-                              });
-
-                              var rerataSuhu = (totalSuhu / count).toFixed(2);
-
-                              
-                              callback(null, rerataSuhu);
-                            });
-                    },
-                    
-                    kelembaban_indor_1: function(callback) {
-                        var ref = db.ref('kandangmirror/s');
-
-                            //Read Data
-                            ref.once('value', function ref(snapshot) {
-                              var count = 0;
-                              var totalSuhu = 0;
-
-                              snapshot.forEach(function (childSnapshot) {
-
-                                if ((childSnapshot.val().lantai == 1)  && ((childSnapshot.key).substring(0,1) == 'S')) {
-                                  var suhu = parseFloat(childSnapshot.val().b);
-                                            
-                                  if (childSnapshot.val().lantai == 1) {
-                                    totalSuhu = totalSuhu + suhu;
-                                    count++;
-                                  }
-
-                                }
-                              });
-
-                              var rerataSuhu = (totalSuhu / count).toFixed(2);
-
-                              
-                              callback(null, rerataSuhu);
-                            });
-                    },
-                    kelambaban_indor_2: function(callback) {
-                        var ref = db.ref('kandangmirror/s');
-
-                            //Read Data
-                            ref.once('value', function ref(snapshot) {
-                              var count = 0;
-                              var totalSuhu = 0;
-
-                              snapshot.forEach(function (childSnapshot) {
-                                if ((childSnapshot.val().lantai == 2) && ((childSnapshot.key).substring(0,1) == 'S')) {
-                                  var suhu = parseFloat(childSnapshot.val().b);
-                                            
-                                  if (childSnapshot.val().lantai == 2) {
-                                    totalSuhu = totalSuhu + suhu;
-                                    count++;
-                                  }
-
-                                }
-                              });
-
-                              var rerataSuhu = (totalSuhu / count).toFixed(2);
-
-                              
-                              callback(null, rerataSuhu);
-                            });
-                    },
-                    kecepatan_indor_1: function(callback) {
-                        var ref = db.ref('kandangmirror/s');
-
-                            //Read Data
-                            ref.once('value', function ref(snapshot) {
-                              var count = 0;
-                              var totalSuhu = 0;
-
-                              snapshot.forEach(function (childSnapshot) {
-
-                                if ((childSnapshot.val().lantai == 1)  && ((childSnapshot.key).substring(0,1) == 'W')) {
-                                  var suhu = parseFloat(childSnapshot.val().a);
-                                            
-                                  if (childSnapshot.val().lantai == 1) {
-                                    totalSuhu = totalSuhu + suhu;
-                                    count++;
-                                  }
-
-                                }
-                              });
-
-                              var rerataSuhu = (totalSuhu / count).toFixed(2);
-
-                              
-                              callback(null, rerataSuhu);
-                            });
-                    },
-                    kecepatan_indor_2: function(callback) {
-                        var ref = db.ref('kandangmirror/s');
-
-                            //Read Data
-                            ref.once('value', function ref(snapshot) {
-                              var count = 0;
-                              var totalSuhu = 0;
-
-                              snapshot.forEach(function (childSnapshot) {
-                                if ((childSnapshot.val().lantai == 2) && ((childSnapshot.key).substring(0,1) == 'W')) {
-                                  var suhu = parseFloat(childSnapshot.val().a);
-                                            
-                                  if (childSnapshot.val().lantai == 2) {
-                                    totalSuhu = totalSuhu + suhu;
-                                    count++;
-                                  }
-
-                                }
-                              });
-
-                              var rerataSuhu = (totalSuhu / count).toFixed(2);
-
-                              
-                              callback(null, rerataSuhu);
-                            });
-                    }
-                }, function(err, results) {
+       
                     
                     var users = {
-                        email: 'kerlooza@gmail.com',
+                        email: 'rizalyogip@gmail.com',
                         url: 'http://acme.com/confirm/xxx-yyy-zzz',
                         tanggal : now,
-                        jams : jam,
-                        data : results
+                        jams : jam
                     }
                     console.log(users);
                     templates.render('mail3.html',users,(err, html)=>{
@@ -629,7 +403,7 @@ app.get('/sendmail',(req, res, next) =>{
                                         html: html
                                         }, (err, responseStatus) => {
                                             if (err) {
-                                                console.log(err);
+                                                res.send(err);
                                             } else {
                                                console.log('Email send at '+jam+' to '+users.email);
                                                res.send('Mail has been send to '+users.email);
@@ -637,12 +411,10 @@ app.get('/sendmail',(req, res, next) =>{
                                         }
                                     );
                                 }
-                           
-                    //res.send("test");                    
-                });
-    });
-
-});
+                                  
+   
+            });
+        });
 
 // app.get('/sendmail',(req, res, next)=>{
 //     res.sendFile(__dirname+'/send.html');
