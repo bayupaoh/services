@@ -25,7 +25,7 @@ var checkFeels = db.ref('kandangmirror/feelslike');
         });
 //cron job every 30 minutes
 var cronMail = new CronJob({
-    cronTime: '0 * * * * *',
+    cronTime: '0 */30 * * * *',
      onTick() {
         console.log('--------mulai cron perhitungan---------');
         var indonesia = calcTime();
@@ -313,44 +313,44 @@ var cronMail = new CronJob({
                                       );
                                   }
                              });
-                            // templates.render('mail3.html',users,(err, html)=>{
-                            //       if (err) {
-                            //         console.log(err);
-                            //       } else {
-                            //           transport.sendMail({
-                            //               from: 'Farm Cimerang <noreply@cimerang.com>',
-                            //               to: users.email1,
-                            //               subject: 'K1L1 '+users.data.kandang1.feelslike+' K1L2 '+users.data.kandang2.feelslike+' K2L1 '+users.data.kandang3.feelslike+' K2L2 '+users.data.kandang4.feelslike+' K3L1 '+users.data.kandang5.feelslike+' K3L2 '+users.data.kandang6.feelslike+' [Tanggal '+users.tanggal+' Jam : '+users.jams+']',
-                            //               html: html
-                            //               }, (err, responseStatus) => {
-                            //                   if (err) {
-                            //                       console.log(err);
-                            //                   } else {
-                            //                      console.log('Email send at '+jam+' to '+users.email1);
-                            //                   }
-                            //               }
-                            //           );
-                            //       }
-                            //  });
-                            // templates.render('mail3.html',users,(err, html)=>{
-                            //       if (err) {
-                            //         console.log(err);
-                            //       } else {
-                            //           transport.sendMail({
-                            //               from: 'Farm Cimerang <noreply@cimerang.com>',
-                            //               to: users.email2,
-                            //               subject: 'K1L1 '+users.data.kandang1.feelslike+' K1L2 '+users.data.kandang2.feelslike+' K2L1 '+users.data.kandang3.feelslike+' K2L2 '+users.data.kandang4.feelslike+' K3L1 '+users.data.kandang5.feelslike+' K3L2 '+users.data.kandang6.feelslike+' [Tanggal '+users.tanggal+' Jam : '+users.jams+']',
-                            //               html: html
-                            //               }, (err, responseStatus) => {
-                            //                   if (err) {
-                            //                       console.log(err);
-                            //                   } else {
-                            //                      console.log('Email send at '+jam+' to '+users.email2);
-                            //                   }
-                            //               }
-                            //           );
-                            //       }
-                            //  });
+                            templates.render('mail3.html',users,(err, html)=>{
+                                  if (err) {
+                                    console.log(err);
+                                  } else {
+                                      transport.sendMail({
+                                          from: 'Farm Cimerang <noreply@cimerang.com>',
+                                          to: users.email1,
+                                          subject: 'K1L1 '+users.data.kandang1.feelslike+' K1L2 '+users.data.kandang2.feelslike+' K2L1 '+users.data.kandang3.feelslike+' K2L2 '+users.data.kandang4.feelslike+' K3L1 '+users.data.kandang5.feelslike+' K3L2 '+users.data.kandang6.feelslike+' [Tanggal '+users.tanggal+' Jam : '+users.jams+']',
+                                          html: html
+                                          }, (err, responseStatus) => {
+                                              if (err) {
+                                                  console.log(err);
+                                              } else {
+                                                 console.log('Email send at '+jam+' to '+users.email1);
+                                              }
+                                          }
+                                      );
+                                  }
+                             });
+                            templates.render('mail3.html',users,(err, html)=>{
+                                  if (err) {
+                                    console.log(err);
+                                  } else {
+                                      transport.sendMail({
+                                          from: 'Farm Cimerang <noreply@cimerang.com>',
+                                          to: users.email2,
+                                          subject: 'K1L1 '+users.data.kandang1.feelslike+' K1L2 '+users.data.kandang2.feelslike+' K2L1 '+users.data.kandang3.feelslike+' K2L2 '+users.data.kandang4.feelslike+' K3L1 '+users.data.kandang5.feelslike+' K3L2 '+users.data.kandang6.feelslike+' [Tanggal '+users.tanggal+' Jam : '+users.jams+']',
+                                          html: html
+                                          }, (err, responseStatus) => {
+                                              if (err) {
+                                                  console.log(err);
+                                              } else {
+                                                 console.log('Email send at '+jam+' to '+users.email2);
+                                              }
+                                          }
+                                      );
+                                  }
+                             });
                         });
             }
         });
