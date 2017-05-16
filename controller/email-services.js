@@ -25,7 +25,7 @@ var checkFeels = db.ref('kandangmirror/feelslike');
         });
 //cron job every 30 minutes
 var cronMail = new CronJob({
-    cronTime: '0 */30 * * * *',
+    cronTime: '0 * * * * *',
      onTick() {
         console.log('--------mulai cron perhitungan---------');
         var indonesia = calcTime();
