@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test Email</title>
+<style type="text/css">
+	.table {
+		border : 1px solid black;
+		
+	}
+	
+	.table tr th{
+		padding: 5px;
+		border-bottom : 2px solid gray;
+		background : gray;
+	}
+	.header{
+		padding: 10px;
+		background: #ff9800;
+		color : white;
+		width : 480px;
+		font-size: 14pt;
+		text-align: left;
+	}
+	.kandang{
+		padding: 5px;
+		background: #f57c00;
+		color : white;
+		font-size : 20pt;
+	}
+	.header{
+		background: #ff9800;
+		color : white;
+		padding: 10px;
+		text-align: center;
+	}
+</style>
+<link rel="stylesheet" type="text/css" href="./styles/style_boost.css">
+<link rel="stylesheet" type="text/css" href="./styles/style.min.css">
+</head>
+<body>
+<h1 class="header"> Farm Cimerang {{tanggal}} {{jams}}</h1>
+
+
+<table class="table">
+	<tr>
+		<td colspan="5"><h2 class="kandang">Kondisi Lantai 1 </h2></td>
+	</tr>
+	<tr>
+		<td class="header">Kandang </td>
+		<td class="header">Umur</td>
+		<td class="header"> Feels Like</td>
+		<td  class="header"> Suhu Indoor </td>
+		<td  class="header"> Kelembapan Indoor </td>
+		<td  class="header"> Kecepatan Angin Indoor </td>
+	</tr>
+	<tr>
+
+		<td align="center">Kandang 1</td>
+		<td align="center">{{data.kandang1.umur}} Hari </td>
+		<td align="center">{{data.kandang1.feelslike}}  &#8451;</td>
+		<td align="center">{{data.kandang1.suhu}}  &#8451;</td>
+		<td align="center">{{data.kandang1.kelembapan}}  &#8451;</td>
+		<td align="center">{{data.kandang1.kecepatan}} KM/jam </td>
+	</tr>
+	<tr>
+
+		<td align="center">Kandang 2</td>
+		<td align="center">{{data.kandang3.umur}}  Hari</td>
+		<td align="center">{{data.kandang3.feelslike}}  &#8451;</td>
+		<td align="center">{{data.kandang3.suhu}}  &#8451;</td>
+		<td align="center">{{data.kandang3.kelembapan}}  &#8451;</td>
+		<td align="center">{{data.kandang3.kecepatan}} KM/jam </td>
+	</tr>
+	<tr>
+
+		<td align="center">Kandang 3</td>
+		<td align="center">{{data.kandang5.umur}}  Hari</td>
+		<td align="center">{{data.kandang5.feelslike}}  &#8451;</td>
+		<td align="center">{{data.kandang5.suhu}}  &#8451;</td>
+		<td align="center">{{data.kandang5.kelembapan}}  &#8451;</td>
+		<td align="center">{{data.kandang5.kecepatan}} KM/jam </td>
+	</tr>
+	<tr>
+		<td colspan="5"><h2 class="kandang">Kondisi Lantai 2 </h2></td>
+	</tr>
+	<tr>
+		<td class="header">Kandang </td>
+		<td class="header"> Umur </td>
+		<td class="header"> Feels Like</td>
+		<td  class="header"> Suhu Indoor </td>
+		<td  class="header"> Kelembapan Indoor </td>
+		<td  class="header"> Kecepatan Angin Indoor </td>
+	</tr>
+	<tr>
+
+		<td align="center">Kandang 1</td>
+		<td align="center">{{data.kandang2.umur}}  Hari</td>
+		<td align="center">{{data.kandang2.feelslike}}  &#8451;</td>
+		<td align="center">{{data.kandang2.suhu}}  &#8451;</td>
+		<td align="center">{{data.kandang2.kelembapan}}  &#8451;</td>
+		<td align="center">{{data.kandang2.kecepatan}} KM/jam </td>
+	</tr>
+	<tr>
+		<td align="center">Kandang 2</td>
+		<td align="center">{{data.kandang4.umur}}  Hari</td>
+		<td align="center">{{data.kandang4.feelslike}}  &#8451;</td>
+		<td align="center">{{data.kandang4.suhu}}  &#8451;</td>
+		<td align="center">{{data.kandang4.kelembapan}}  &#8451;</td>
+		<td align="center">{{data.kandang4.kecepatan}} KM/jam </td>
+	</tr>
+	<tr>
+		<td align="center">Kandang 3</td>
+		<td align="center">{{data.kandang6.umur}}  Hari</td>
+		<td align="center">{{data.kandang6.feelslike}}  &#8451;</td>
+		<td align="center">{{data.kandang6.suhu}}  &#8451;</td>
+		<td align="center">{{data.kandang6.kelembapan}}  &#8451;</td>
+		<td align="center">{{data.kandang6.kecepatan}} KM/jam </td>
+	</tr>
+	
+</table>
+</body>
+</html>

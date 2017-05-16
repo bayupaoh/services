@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test Email</title>
+<style type="text/css">
+	.table {
+		border : 1px solid black;
+		
+	}
+	
+	.table tr th{
+		padding: 10px;
+		border-bottom : 2px solid gray;
+		background : gray;
+	}
+	h1{
+		padding: 10px;
+		background: #ff9800;
+		color : white;
+		width : 480px;
+	}
+	h2{
+		padding: 5px;
+		background: #f57c00;
+		color : white;
+		width : 490px;
+		font-size : 20pt;
+	}
+	.header{
+		background: #ff9800;
+		color : white;
+		padding: 10px;
+		text-align: center;
+	}
+</style>
+<link rel="stylesheet" type="text/css" href="./styles/style_boost.css">
+<link rel="stylesheet" type="text/css" href="./styles/style.min.css">
+</head>
+<body>
+<h1> Farm Cimerang {{tanggal}} {{jams}}</h1>
+<h2>Kondisi Lantai </h2>
+<table class="table">
+	
+	<tr>
+		<td class="header">Lantai </td>
+		<td class="header"> Feels Like</td>
+		<td  class="header"> Suhu Indoor </td>
+		<td  class="header"> Kelembapan Indoor </td>
+		<td  class="header"> Kecepatan Angin Indoor </td>
+	</tr>
+	<tr>
+
+		<td align="center">Lantai 1</td>
+		<td align="center">{{data.feels_like_1}}  &#8451;</td>
+		<td align="center">{{data.suhu_indor_1}}  &#8451;</td>
+		<td align="center">{{data.kelembaban_indor_1}}  &#8451;</td>
+		<td align="center">{{data.kecepatan_indor_1}} KM/jam </td>
+	</tr>
+	<tr>
+		<td align="center">Lantai 2</td>
+		<td align="center">{{data.feels_like_2}}  &#8451;</td>
+		<td align="center">{{data.suhu_indor_2}}  &#8451;</td>
+		<td align="center">{{data.kelambaban_indor_2}}  &#8451;</td>
+		<td align="center">{{data.kecepatan_indor_2}}  KM/jam </td>
+	</tr>
+
+	
+</table>
+</body>
+</html>
