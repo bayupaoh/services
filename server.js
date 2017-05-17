@@ -25,6 +25,8 @@ function calcTime() {
 //   console.log(indonesia);
 //   // var indonesia = calcTime('indonesia', '+7');
 
+require('./controller/rata_sensor');
+require('./controller/feelslike');
 require('./controller/background-services');  
 app.use(require('./controller/email-services'));
   app.get('/',function(req,res){

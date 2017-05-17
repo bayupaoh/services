@@ -18,14 +18,14 @@ var transport = nodemailer.createTransport({
 });
 
 var db = fb.database();
-var checkFeels = db.ref('kandangmirror/feelslike');
+// var checkFeels = db.ref('kandangmirror/feelslike');
 
-        checkFeels.once('value',function ref(kampret){
-           console.log(kampret.val().kandang1);
-        });
-//cron job every 30 minutes
+//         checkFeels.once('value',function ref(kampret){
+//            console.log(kampret.val().kandang1);
+//         });
+// //cron job every 30 minutes
 var cronMail = new CronJob({
-    cronTime: '0 */30 * * * *',
+    cronTime: '0 * * * * *',
      onTick() {
         console.log('--------mulai cron perhitungan---------');
         var indonesia = calcTime();
@@ -43,15 +43,19 @@ var cronMail = new CronJob({
 
         console.log('Cron on gan at '+jam);
         var templates = new EmailTemplates({root: './views'});
-        var checkFeels = db.ref('kandangmirror/feelslike');
+        var checkSuhu = db.ref('kandangmirror/rata_sensor');
 
-        checkFeels.once('value',function ref(kampret){
+        checkSuhu.once('value',function ref(kampret){
             var error = 0;
             var sukses = 0;
             kampret.forEach((snapshot) => {
                 const check = snapshot.val();
-             
-                if((check < 23.5) || (check > 30.5)){
+                var umur = check.hari;
+                var a = parseFloat(check.a);
+                var b = parseFloat(check.b);
+                var unnormal = checkNormalize(a, b, umur);
+                console.log('kandang '+check.id_kandang+' suhu '+a+' kelembapan '+b+' umur '+umur+' status '+unnormal);
+                if(unnormal === 0){
                     error++;
                 }else{
                     sukses++;
@@ -70,12 +74,35 @@ var cronMail = new CronJob({
 
                                             },
                                             suhu : function(callback){
-                                                  const suhu = 29;
-                                                  callback(null, suhu);
+                                                  const ref_kandang = db.ref('kandangmirror/s');
+                                                  ref_kandang.once('value', function (snapshot){
+                                                    var suhu = 0;
+                                                    var count = 0;
+                                                      snapshot.forEach((snap) => {
+                                                          if(snap.val().id_kandang === 1){
+                                                              suhu = suhu + parseFloat(snap.val().a);
+                                                              count++;
+                                                          }
+                                                      });
+                                                        var rata = (suhu/count);
+                                                       callback(null, rata.toFixed(2));
+                                                  });
+                                                 
                                             },
                                             kelembapan : function(callback){
-                                                  const kelembapan = 80;
-                                                  callback(null, kelembapan);
+                                                  const ref_kandang = db.ref('kandangmirror/s');
+                                                  ref_kandang.once('value', function (snapshot){
+                                                    var lembab = 0;
+                                                    var count = 0;
+                                                      snapshot.forEach((snap) => {
+                                                          if(snap.val().id_kandang === 1){
+                                                              lembab = lembab + parseFloat(snap.val().b);
+                                                              count++;
+                                                          }
+                                                      });
+                                                        var rata = lembab/count;
+                                                       callback(null, rata.toFixed(2));
+                                                  });
                                             },
                                             kecepatan : function(callback){
                                                 var angin = db.ref('kandangmirror/s/W1');
@@ -107,12 +134,34 @@ var cronMail = new CronJob({
 
                                             },
                                             suhu : function(callback){
-                                                  const suhu = 30;
-                                                  callback(null, suhu);
+                                                 const ref_kandang = db.ref('kandangmirror/s');
+                                                  ref_kandang.once('value', function (snapshot){
+                                                    var suhu = 0;
+                                                    var count = 0;
+                                                      snapshot.forEach((snap) => {
+                                                          if(snap.val().id_kandang === 2){
+                                                              suhu = suhu + parseFloat(snap.val().a);
+                                                              count++;
+                                                          }
+                                                      });
+                                                        var rata = suhu/count;
+                                                       callback(null, rata.toFixed(2));
+                                                  });
                                             },
                                             kelembapan : function(callback){
-                                                  const kelembapan = 80;
-                                                  callback(null, kelembapan);
+                                                  const ref_kandang = db.ref('kandangmirror/s');
+                                                  ref_kandang.once('value', function (snapshot){
+                                                    var lembab = 0;
+                                                    var count = 0;
+                                                      snapshot.forEach((snap) => {
+                                                          if(snap.val().id_kandang === 2){
+                                                              lembab = lembab + parseFloat(snap.val().b);
+                                                              count++;
+                                                          }
+                                                      });
+                                                        var rata = lembab/count;
+                                                       callback(null, rata.toFixed(2));
+                                                  });
                                             },
                                             kecepatan : function(callback){
                                                 var angin = db.ref('kandangmirror/s/W2');
@@ -144,12 +193,34 @@ var cronMail = new CronJob({
 
                                             },
                                             suhu : function(callback){
-                                                  const suhu = 33;
-                                                  callback(null, suhu);
+                                                 const ref_kandang = db.ref('kandangmirror/s');
+                                                  ref_kandang.once('value', function (snapshot){
+                                                    var suhu = 0;
+                                                    var count = 0;
+                                                      snapshot.forEach((snap) => {
+                                                          if(snap.val().id_kandang === 3){
+                                                              suhu = suhu + parseFloat(snap.val().a);
+                                                              count++;
+                                                          }
+                                                      });
+                                                        var rata = suhu/count;
+                                                       callback(null, rata.toFixed(2));
+                                                  });
                                             },
                                             kelembapan : function(callback){
-                                                  const kelembapan = 80;
-                                                  callback(null, kelembapan);
+                                                 const ref_kandang = db.ref('kandangmirror/s');
+                                                  ref_kandang.once('value', function (snapshot){
+                                                    var lembab = 0;
+                                                    var count = 0;
+                                                      snapshot.forEach((snap) => {
+                                                          if(snap.val().id_kandang === 3){
+                                                              lembab = lembab + parseFloat(snap.val().b);
+                                                              count++;
+                                                          }
+                                                      });
+                                                        var rata = lembab/count;
+                                                       callback(null, rata.toFixed(2));
+                                                  });
                                             },
                                             kecepatan : function(callback){
                                                 var angin = db.ref('kandangmirror/s/W3');
@@ -181,12 +252,34 @@ var cronMail = new CronJob({
 
                                             },
                                             suhu : function(callback){
-                                                  const suhu = 33;
-                                                  callback(null, suhu);
+                                                 const ref_kandang = db.ref('kandangmirror/s');
+                                                  ref_kandang.once('value', function (snapshot){
+                                                    var suhu = 0;
+                                                    var count = 0;
+                                                      snapshot.forEach((snap) => {
+                                                          if(snap.val().id_kandang === 4){
+                                                              suhu = suhu + parseFloat(snap.val().a);
+                                                              count++;
+                                                          }
+                                                      });
+                                                        var rata = suhu/count;
+                                                       callback(null, rata.toFixed(2));
+                                                  });
                                             },
                                             kelembapan : function(callback){
-                                                  const kelembapan = 80;
-                                                  callback(null, kelembapan);
+                                                  const ref_kandang = db.ref('kandangmirror/s');
+                                                  ref_kandang.once('value', function (snapshot){
+                                                    var lembab = 0;
+                                                    var count = 0;
+                                                      snapshot.forEach((snap) => {
+                                                          if(snap.val().id_kandang === 4){
+                                                              lembab = lembab + parseFloat(snap.val().b);
+                                                              count++;
+                                                          }
+                                                      });
+                                                        var rata = lembab/count;
+                                                       callback(null, rata.toFixed(2));
+                                                  });
                                             },
                                             kecepatan : function(callback){
                                                 var angin = db.ref('kandangmirror/s/W4');
@@ -218,12 +311,34 @@ var cronMail = new CronJob({
 
                                             },
                                             suhu : function(callback){
-                                                  const suhu = 33;
-                                                  callback(null, suhu);
+                                                  const ref_kandang = db.ref('kandangmirror/s');
+                                                  ref_kandang.once('value', function (snapshot){
+                                                    var suhu = 0;
+                                                    var count = 0;
+                                                      snapshot.forEach((snap) => {
+                                                          if(snap.val().id_kandang === 5){
+                                                              suhu = suhu + parseFloat(snap.val().a);
+                                                              count++;
+                                                          }
+                                                      });
+                                                        var rata = suhu/count;
+                                                       callback(null, rata.toFixed(2));
+                                                  });
                                             },
                                             kelembapan : function(callback){
-                                                  const kelembapan = 80;
-                                                  callback(null, kelembapan);
+                                                  const ref_kandang = db.ref('kandangmirror/s');
+                                                  ref_kandang.once('value', function (snapshot){
+                                                    var lembab = 0;
+                                                    var count = 0;
+                                                      snapshot.forEach((snap) => {
+                                                          if(snap.val().id_kandang === 5){
+                                                              lembab = lembab + parseFloat(snap.val().b);
+                                                              count++;
+                                                          }
+                                                      });
+                                                        var rata = lembab/count;
+                                                       callback(null, rata.toFixed(2));
+                                                  });
                                             },
                                             kecepatan : function(callback){
                                                 var angin = db.ref('kandangmirror/s/W5');
@@ -255,12 +370,34 @@ var cronMail = new CronJob({
 
                                             },
                                             suhu : function(callback){
-                                                  const suhu = 33;
-                                                  callback(null, suhu);
+                                                  const ref_kandang = db.ref('kandangmirror/s');
+                                                  ref_kandang.once('value', function (snapshot){
+                                                    var suhu = 0;
+                                                    var count = 0;
+                                                      snapshot.forEach((snap) => {
+                                                          if(snap.val().id_kandang === 6){
+                                                              suhu = suhu + parseFloat(snap.val().a);
+                                                              count++;
+                                                          }
+                                                      });
+                                                        var rata = suhu/count;
+                                                       callback(null, rata.toFixed(2));
+                                                  });
                                             },
                                             kelembapan : function(callback){
-                                                  const kelembapan = 80;
-                                                  callback(null, kelembapan);
+                                                  const ref_kandang = db.ref('kandangmirror/s');
+                                                  ref_kandang.once('value', function (snapshot){
+                                                    var lembab = 0;
+                                                    var count = 0;
+                                                      snapshot.forEach((snap) => {
+                                                          if(snap.val().id_kandang === 6){
+                                                              lembab = lembab + parseFloat(snap.val().b);
+                                                              count++;
+                                                          }
+                                                      });
+                                                        var rata = lembab/count;
+                                                       callback(null, rata.toFixed(2));
+                                                  });
                                             },
                                             kecepatan : function(callback){
                                                 var angin = db.ref('kandangmirror/s/W6');
@@ -286,8 +423,8 @@ var cronMail = new CronJob({
                             console.log(results);
                             var users = {
                                   email1: 'kerlooza@gmail.com',
-                                  email2 : 'fsbayuaji@gmail.com',
-                                  email3 : 'rizalyogip@gmail.com',
+                                  email2 : 'cimerangfarm@gmail.com',
+                                  email3 : 'adammbachtiar@gmail.com',
                                   url: 'http://acme.com/confirm/xxx-yyy-zzz',
                                   tanggal : now,
                                   jams : jam,
@@ -301,7 +438,7 @@ var cronMail = new CronJob({
                             //           transport.sendMail({
                             //               from: 'Farm Cimerang <noreply@cimerang.com>',
                             //               to: users.email3,
-                            //               subject: 'K1L1 '+users.data.kandang1.feelslike+' K1L2 '+users.data.kandang2.feelslike+' K2L1 '+users.data.kandang3.feelslike+' K2L2 '+users.data.kandang4.feelslike+' K3L1 '+users.data.kandang5.feelslike+' K3L2 '+users.data.kandang6.feelslike+' [Tanggal '+users.tanggal+' Jam : '+users.jams+']',
+                            //               subject: 'K1 '+users.data.kandang1.feelslike+'  '+users.data.kandang2.feelslike+' K2 '+users.data.kandang3.feelslike+' '+users.data.kandang4.feelslike+' K3 '+users.data.kandang5.feelslike+' '+users.data.kandang6.feelslike+' [Tanggal '+users.tanggal+' Jam : '+users.jams+']',
                             //               html: html
                             //               }, (err, responseStatus) => {
                             //                   if (err) {
@@ -520,25 +657,60 @@ app.get('/sendmail',(req, res, next) =>{
 }
 
 function checkNormalize(a, b, umur){
-  if(umur === 1){
-    if((a < 29.25) || (a > 32.25) || (b < 60) || (b > 70)){
+  if((umur > 0) && (umur < 3)){
+    if((a < 30) || (a > 32) || (b < 60) || (b > 70)){
       return 0;
+    }else{
+      return 1;
     }
     
-  }else if((umur === 3) && (a < 27) || (a > 30) && (b < 60) || (b > 70)){
-    return 0;
-  }else if((umur === 6) && (a < 25) || (a > 28) && (b < 60) || (b > 70)){
-    return 0;
-  }else if((umur === 9) && (a < 25) || (a > 28) && (b < 60) || (b > 70)){
-    return 0;
-  }else if((umur === 12) && (a < 25) || (a > 26) && (b < 60) || (b > 70)){
-    return 0;
-  }else if((umur > 15) && (a < 24) || (a > 25) || (b < 60) || (b > 70)){
-    return 0;
+  }else if((umur >= 3) && (umur < 6)){
+    if((a < 27) || (a > 30) || (b < 60) || (b > 70)){
+      return 0;
+    }else{
+      return 1;
+    }
+  }else if((umur >=6) && (umur < 9)){
+    if((a < 25) || (a > 28) || (b < 60) || (b > 70)){
+      return 0;
+    }else{
+      return 1;
+    }
+  }else if((umur >= 9) && (umur < 12)){
+   if((a < 25) || (a > 28) || (b < 60) || (b > 70)){
+      return 0;
+    }else{
+      return 1;
+    }
+  }else if((umur >= 12) && (umur < 15)){
+    if((a < 25) || (a > 26) || (b < 60) || (b > 70)){
+      return 0;
+    }else{
+      return 1;
+    }
   }else{
-    return 1;
+    if((a < 24) || (a > 25) || (b < 60) || (b > 70)){
+      return 0;
+    }else{
+      return 1;
+    }
   }
 }
+// function getUmur(kandang){
+//           var test = [];
+//           const ref_umur = db.ref('grafik/kandang'+kandang+'/perhitungan');
+//           ref_umur.once('value', function(grafik){
+//              var umur = grafik.val().hari;
+//               test.push(umur);
+//           });
+
+//     var test = 0;
+//     blabla.balba((callback,result)=>{
+//         test = result;
+//     }).Sync();
+    
+//     return test;
+// }
 module.exports = app;
 
 
