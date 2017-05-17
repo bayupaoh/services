@@ -431,25 +431,25 @@ var cronMail = new CronJob({
                                   data : results
                               }
 
-                            templates.render('mail3.html',users,(err, html)=>{
-                                  if (err) {
-                                    console.log(err);
-                                  } else {
-                                      transport.sendMail({
-                                          from: 'Farm Cimerang <noreply@cimerang.com>',
-                                          to: users.email1,
-                                          subject: 'K1 '+users.data.kandang1.feelslike+'  '+users.data.kandang2.feelslike+' K2 '+users.data.kandang3.feelslike+' '+users.data.kandang4.feelslike+' K3 '+users.data.kandang5.feelslike+' '+users.data.kandang6.feelslike+' [Tanggal '+users.tanggal+' Jam : '+users.jams+']',
-                                          html: html
-                                          }, (err, responseStatus) => {
-                                              if (err) {
-                                                  console.log(err);
-                                              } else {
-                                                 console.log('Email send at '+jam+' to '+users.email3);
-                                              }
-                                          }
-                                      );
-                                  }
-                             });
+                            // templates.render('mail3.html',users,(err, html)=>{
+                            //       if (err) {
+                            //         console.log(err);
+                            //       } else {
+                            //           transport.sendMail({
+                            //               from: 'Farm Cimerang <noreply@cimerang.com>',
+                            //               to: users.email1,
+                            //               subject: 'K1 '+users.data.kandang1.feelslike+'  '+users.data.kandang2.feelslike+' K2 '+users.data.kandang3.feelslike+' '+users.data.kandang4.feelslike+' K3 '+users.data.kandang5.feelslike+' '+users.data.kandang6.feelslike+' [Tanggal '+users.tanggal+' Jam : '+users.jams+']',
+                            //               html: html
+                            //               }, (err, responseStatus) => {
+                            //                   if (err) {
+                            //                       console.log(err);
+                            //                   } else {
+                            //                      console.log('Email send at '+jam+' to '+users.email3);
+                            //                   }
+                            //               }
+                            //           );
+                            //       }
+                            //  });
                             // templates.render('mail3.html',users,(err, html)=>{
                             //       if (err) {
                             //         console.log(err);
