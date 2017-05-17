@@ -20,13 +20,13 @@ ref_kandang.on('child_changed', function(snapshot){
 		snapshot2.forEach((sensor)=>{
 				var values = sensor.val();
 				
-				if((values.id_kandang === childSnapshot.id_kandang) && ((snapshot.key).substr(0,1) !== 'W') && (values.id_kandang !== 'undefined')){
+				if((values.id_kandang === childSnapshot.id_kandang) && ((snapshot.key).substr(0,1) !== 'W') && (values.id_kandang !== 'undefined') && (values.tipe === 'si')){
 					suhu = suhu + parseFloat(values.a);
 					kelembapan = kelembapan + parseFloat(values.b);
 					count++;
 				}
 		});
-		if(((snapshot.key).substr(0,1) !== 'W') || (childSnapshot.id_kandang !== 'undefined')){
+		if(((snapshot.key).substr(0,1) !== 'W') && (childSnapshot.id_kandang !== 'undefined') && (childSnapshot.id_kandang !== undefined) && (childSnapshot.tipe === 'si')){
 			var rerataSuhu = suhu/count;
 			var rerataLembab = kelembapan/count;
 

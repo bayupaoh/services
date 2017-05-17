@@ -12,62 +12,65 @@ var db = fb.database();
 const ref_kandang_feels = db.ref('/kandangmirror/s');
 ref_kandang_feels.on('child_changed', function(snapshot){
 	childSnapshot = snapshot.val();
-	console.log('First '+childSnapshot.id_kandang);
-	const ref_sensor = db.ref('/kandangmirror/s');
-	ref_sensor.once('value', function(snapshot2){
-		var suhu = 0;
-		var kelembapan = 0;
-		var count = 0;
-		snapshot2.forEach((sensor)=>{
-				var values = sensor.val();
-				
-				if((values.id_kandang === childSnapshot.id_kandang) && ((snapshot.key).substr(0,1) !== 'W')){
-					suhu = suhu + parseFloat(values.a);
-					kelembapan = kelembapan + parseFloat(values.b);
-					count++;
-					console.log(suhu+' jajaja');
+	if(((snapshot.key).substr(0,1) !== 'W') && (childSnapshot.id_kandang !== 'undefined') && (childSnapshot.id_kandang !== undefined) && (childSnapshot.tipe === 'si')){
+			
+			console.log('Feells '+childSnapshot.id_kandang);
+			const ref_sensor = db.ref('/kandangmirror/s');
+
+			ref_sensor.once('value', function(snapshot2){
+				var suhu = 0;
+				var kelembapan = 0;
+				var count = 0;
+				snapshot2.forEach((sensor)=>{
+						var values = sensor.val();
+						
+						if((values.id_kandang === childSnapshot.id_kandang) && ((snapshot.key).substr(0,1) !== 'W') && (values.id_kandang !== 'undefined') && (values.tipe === 'si')){
+							suhu = suhu + parseFloat(values.a);
+							kelembapan = kelembapan + parseFloat(values.b);
+							count++;
+						}
+				});
+				var rerataSuhu = suhu/count;
+				var rerataLembab = kelembapan/count;
+				var feelslikes = feels_Like(rerataLembab, rerataSuhu);
+				console.log(feelslikes+' Kandang '+childSnapshot.id_kandang);
+
+				var update_ref = db.ref().child('kandangmirror/feelslike');
+				var data = 0;
+				var kandang = childSnapshot.id_kandang;
+
+				if(kandang === 1){
+					data = {
+						kandang1 : feelslikes
+					}
+				}else if(kandang === 2){
+					data = {
+						kandang2 : feelslikes
+					}
+				}else if(kandang === 3){
+					data = {
+						kandang3 : feelslikes
+					}
+				}else if(kandang === 4){
+					data = {
+						kandang4 : feelslikes
+					}
+				}else if(kandang === 5){
+					data = {
+						kandang5 : feelslikes
+					}
+				}else if(kandang === 6){
+					data = {
+						kandang6 : feelslikes
+					}
 				}
-		});
-		var rerataSuhu = suhu/count;
-		var rerataLembab = kelembapan/count;
-		var feelslikes = feels_Like(rerataLembab, rerataSuhu);
-		console.log(feelslikes+' Kandang '+childSnapshot.id_kandang);
+				
+		    	update_ref.update(data).then(function(update){
+		    		console.log('update feelslikes '+snapshot.key+' with value '+feelslikes);
+		    	});
 
-		var update_ref = db.ref().child('kandangmirror/feelslike');
-		var data = 0;
-		var kandang = childSnapshot.id_kandang;
-
-		if(kandang === 1){
-			data = {
-				kandang1 : feelslikes
-			}
-		}else if(kandang === 2){
-			data = {
-				kandang2 : feelslikes
-			}
-		}else if(kandang === 3){
-			data = {
-				kandang3 : feelslikes
-			}
-		}else if(kandang === 4){
-			data = {
-				kandang4 : feelslikes
-			}
-		}else if(kandang === 5){
-			data = {
-				kandang5 : feelslikes
-			}
-		}else if(kandang === 6){
-			data = {
-				kandang6 : feelslikes
-			}
-		}
-	
-    	update_ref.update(data).then(function(update){
-    		console.log('update feelslikes '+snapshot.key+' with value '+feelslikes);
-    	});
-
-	})
+			})
+	}		
 });
 
 
