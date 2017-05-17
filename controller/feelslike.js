@@ -9,8 +9,8 @@ var config = require('../config/firebase');
 var db = fb.database();
 
 //to add feelslike on collection kandangmirror/feelslike
-const ref_kandang = db.ref('/kandangmirror/s');
-ref_kandang.on('child_changed', function(snapshot){
+const ref_kandang_feels = db.ref('/kandangmirror/s');
+ref_kandang_feels.on('child_changed', function(snapshot){
 	childSnapshot = snapshot.val();
 	console.log('First '+childSnapshot.id_kandang);
 	const ref_sensor = db.ref('/kandangmirror/s');
