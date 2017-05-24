@@ -55,7 +55,7 @@ var db = fb.database();
 	});
 
 
-  //fan add automatic
+  // //fan add automatic
   var ref_fan = db.ref().child('kandang').child('fan');
   ref_fan.on('child_changed',function(snapshot){
     var indonesia = calcTime();
@@ -91,7 +91,7 @@ var db = fb.database();
     	update_ref.update(data).then(function(update){
     		console.log('update Fan '+snapshot.key);
     	});
-    	//console.log("The updated sensor key : " + snapshot.key);
+    	//console.log("The updated fan key : " + snapshot.key);
   });
 
 

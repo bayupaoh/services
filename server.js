@@ -28,7 +28,7 @@ function calcTime() {
 require('./controller/background-services');  
 require('./controller/rata_sensor');
 require('./controller/feelslike');
-app.use(require('./controller/email-services'));
+//app.use(require('./controller/email-services'));
   app.get('/',function(req,res){
     var indonesia = calcTime();
     var dates = new Date(indonesia);
