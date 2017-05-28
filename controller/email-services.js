@@ -61,7 +61,7 @@ var cronMail = new CronJob({
                     sukses++;
                 } 
             }); 
-            if(error > 0){
+            //if(error > 0){
                   async.parallel({
                                 kandang1 : function (callback){
                                         async.parallel({
@@ -489,7 +489,7 @@ var cronMail = new CronJob({
                                   }
                              });
                         });
-            }
+           // }
         });
 
         
